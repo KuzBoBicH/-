@@ -1,0 +1,138 @@
+/*Створити клас «смайлик», такий, що:
+а) його екземпляр містить розмір радіуса особи R і радіуса r очей.
+b) його конструктор без параметра створює екземпляр зі значенням 0, а
+конструктор з параметрами створює екземпляр з відповідним значенням
+R і r.
+c) його методи дозволяють отримувати і присвоювати значення R і r та
+обчислювати значення площі.
+d) операція « << » перевантажена : виводить на екран значення R, r і площі
+(без площі очей).
+e) операція « + » перевантажена : для двох «смайликів» створює новий
+«смайлик» з параметрами(R = R1 + R2, r = r1 + r2).
+g) операція «++» збільшує радіус «обличчя» R і радіус r очей на одиницю.*/
+
+
+#include <iostream>
+#define _USE_MATH_DEFINES
+#include <cmath>
+
+using namespace std;
+
+class Smiley {
+
+private:
+
+    double R;
+    double r;
+    double SR;
+    double Sr;
+
+public:
+
+    //Сеттеры для лица
+
+    void setFaceR(double RValue) {
+        R = RValue;
+    }
+
+    void setFaceRSquare(double SR) {
+        R = sqrt(SR / 3.14);
+    }
+
+    //Сеттеры для глаз
+
+    void setEyer(double rValue) {
+        r = rValue;
+    }
+
+    void setEyerSquare(double Sr) {
+        r = sqrt(Sr / 3.14);
+    }
+
+    //Геттеры для лица
+
+    double getFaceR() {
+        return R;
+    }
+
+    double getFaceSquare() {
+        return 3.14 * R * R;
+    }
+
+    //Геттеры для глаз
+
+    double getEyer() {
+        return r;
+    }
+
+    double getEyeSquare() {
+        return 3.14 * r * r;
+    }
+
+    double setFaceandEyeSquare(double SR, double Sr, double R, double r) {
+        SR = 3.14 * R * R;
+        Sr = 3.14 * r * r;
+    }
+
+    Smiley() { //Конструктор по умолчанию
+        R = r = 0.0;
+    }
+
+    Smiley(double R, double r) { //Конструктор c параметром
+        setFaceR(R);
+        setEyer(r);
+    }
+
+    void print_sqrt() { //Метод вывода на экран площади лица
+        cout << 3.14 * R * R << "\n";
+    }
+
+    Smiley operator << (int setFaceandEyeSquare)
+    {
+        cout << "R = ", R;
+        cout << "r = ", r;
+        cout << "SR = ", SR;
+    }
+
+    Smiley operator + (int setFaceandEyeSquare)
+    {
+        class Smiley2 {
+        private:
+            double R2;
+            double r2;
+            double SR2;
+            double Sr2;
+
+        public:
+            void setFaceR(double RValue) {
+                R2 = RValue + RValue;
+            }
+            void setEyer(double rValue) {
+                r2 = rValue + rValue;
+            }
+        };
+        
+    }
+    
+
+    Smiley operator ++ (int setFaceandEyeSquare)
+    {
+        R = R + 1;
+        r = r + 1;
+        cout << "R = ", R;
+        cout << "r = ", r;
+    }
+
+};
+
+int main()
+{
+    Smiley* obj = new Smiley();
+    obj->setFaceRSquare(50);
+    cout << obj->getFaceR() << "\n";
+    obj->setEyerSquare(10);
+    cout << obj->getEyer() << "\n";
+    obj->print_sqrt();
+    system("pause");
+    return 0;
+}
