@@ -1,0 +1,80 @@
+/*
+1. Визначити ієрархію класів (відповідно до варіанта). З переліку класів
+вибрати один, який буде стояти на чолі ієрархії. Переважно це має бути
+абстрактний клас.
+2. Реалізувати класи. Створити поліморфну функцію (віртуальну або
+чисто віртуальну) відповідно варіанту.
+3. Написати демонстраційну програму, в якій створюються об'єкти різних
+класів і поміщаються в масив або в список, після чого масив або список
+проглядається через виклик поліморфної функції.
+4. Якщо базовий клас не абстрактний, зробити відповідну поліморфну
+функцію не віртуальною і подивитися, що буде. Пояснити отриманий
+результат.
+
+Куля, усічений прямий конус, геометрічне тіло, конус. Поліморфна
+функція повертає значення об’єму відповідного геометрічного тіла. (Формули
+для обчислення знайти самостійно)
+*/
+#include <iostream>
+#include <list>
+#include <cmath>
+using namespace std;
+ 
+class Geometric_body
+{
+    public:
+        virtual void Print_value() = 0;
+};
+
+class Sphere: public Geometric_body
+{
+    public:
+        void Print_value()
+        {   
+            const int R = 4;
+            double V;
+            V = 4/3 * M_PI * pow(R,3);
+            cout << "Value of Sphere = " << V << endl;
+        }
+};
+
+class Cone: public Geometric_body
+{
+    public:
+        void Print_value()
+        {
+            double V;
+            const int R = 5;
+            const int H = 4;
+            V = M_PI * pow(R, 2) * H/3;
+            cout << "Value of Cone = " << V << endl;
+        }
+};
+
+class TruncatedCone: public Geometric_body
+{
+    public:
+        void Print_value()
+        {
+            const int R = 5;
+            const int r = 8;
+            const int H = 3;
+            double V;
+            V = 1/3 * M_PI * H * pow(R, 2) + R * r + pow(r, 2);
+            cout << "Value of Truncated_Cone = " << V << endl;
+        }
+};
+
+int main ()
+{
+    Geometric_body *arr[3];
+    Sphere Sp; Cone Cn; TruncatedCone Tcn;
+    arr[0] = &Sp;
+    arr[1] = &Cn;
+    arr[2] = &Tcn;
+    for(int i=0; i<3; i++)
+    {
+        arr[i]->Print_value();
+    }
+
+}
